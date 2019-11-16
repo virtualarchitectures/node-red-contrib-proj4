@@ -1,0 +1,28 @@
+{
+  "name": "node-red-contrib-proj4",
+  "version": "1.0.0",
+  "description": "A Node-Red node for performing geographic coordinate conversions",
+  "node-red" : {
+    "nodes": {
+      "proj4": "proj4/proj4.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/virtualarchitectures/node-red-contrib-proj4.git"
+  },
+  "keywords": [
+    "node-red",
+    "proj4"
+  ],
+
+  "author": "Oliver Dawkins",
+  "license": "MIT",
+  "dependencies": {
+    "proj4": "^2.5.0"
+  },
+  "bugs": {
+    "url": "https://github.com/virtualarchitectures/node-red-contrib-proj4/issues"
+  },
+  "homepage": "https://github.com/virtualarchitectures/node-red-contrib-proj4#readme"
+}
