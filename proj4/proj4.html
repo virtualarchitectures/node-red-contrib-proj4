@@ -1,9 +1,10 @@
 <script type="text/javascript">
     RED.nodes.registerType('proj4',{
-        category: 'function',
+        category: 'geographic',
         color: '#a6bbcf',
         defaults: {
-            name: {value:""}
+            firstProjection: {value:"", required:true},
+            secondProjection: {value:"", required:true},
         },
         inputs:1,
         outputs:1,
@@ -20,22 +21,22 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
         <div class="form-row">
-        <label for="node-input-coordsIn" style="width:25%">Convert from</label>
-        <select type="text" id="node-input-coordsIn" style="width:50%">
-            <option value="0">WGS84 (EPSG:4326)</option>
-            <option value="1">OSGB (EPSG:27700)</option>
-            <option value="2">ITM (EPSG:2157)</option>
-            <option value="3">Irish Grid (EPSG:29903)</option>
+        <label for="node-input-firstProjection" style="width:25%">Convert from</label>
+        <select type="text" id="node-input-firstProjection" style="width:50%">
+            <option value="WGS84">WGS84 (EPSG:4326)</option>
+            <option value="OSGB">OSGB (EPSG:27700)</option>
+            <option value="ITM">ITM (EPSG:2157)</option>
+            <option value="TM75">Irish Grid (EPSG:29903)</option>
         </select>&nbsp;(topics)
     </div>
     </div>
         <div class="form-row">
-        <label for="node-input-coordsOut" style="width:25%">Convert to</label>
-        <select type="text" id="node-input-coordsOut" style="width:50%">
-            <option value="0">OSGB (EPSG:27700)</option>
-            <option value="1">ITM (EPSG:2157)</option>
-            <option value="2">Irish Grid (EPSG:29903)</option>
-            <option value="3">WGS84 (EPSG:4326)</option>
+        <label for="node-input-secondProjection" style="width:25%">Convert to</label>
+        <select type="text" id="node-input-secondProjection" style="width:50%">
+            <option value="OSGB">OSGB (EPSG:27700)</option>
+            <option value="ITM">ITM (EPSG:2157)</option>
+            <option value="TM75">Irish Grid (EPSG:29903)</option>
+            <option value="WGS84">WGS84 (EPSG:4326)</option>
         </select>&nbsp;(topics)
     </div>
 </script>
