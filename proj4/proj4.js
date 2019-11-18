@@ -32,24 +32,26 @@ module.exports = function(RED) {
       node.input_coords;
       node.output_coords;
 
-      console.log('Converting from ' + node.firstProjection + ' to ' + node.secondProjection);
+      //console.log('Converting from ' + node.firstProjection + ' to ' + node.secondProjection);
+      //console.log(msg.payload);
       
       if (msg.payload.x && msg.payload.y) {
-        node.input_coords = [msg.payload.x,msg.payload.y];
+        node.input_coords = {"x":msg.payload.x,"y":msg.payload.y};
       } else if (msg.payload.lon && msg.payload.lat) {
-        node.input_coords = [msg.payload.lon,msg.payload.lat];
+        node.input_coords = {"x":msg.payload.lon,"y":msg.payload.lat};
       } else if (msg.payload.longitude && msg.payload.latitude) {
-        node.input_coords = [msg.payload.longitude,msg.payload.latitude];
+        node.input_coords = {"x":msg.payload.longitude,"y":msg.payload.latitude};
       } else if (msg.payload.eastings && msg.payload.northings) {
-        node.input_coords = [msg.payload.eastings,msg.payload.northings];
+        node.input_coords = {"x":msg.payload.eastings,"y":msg.payload.northings};
       } else {
       	node.input_coords = msg.payload;
       }
       
       node.output_coords = proj4(proj4.defs[node.firstProjection],proj4.defs[node.secondProjection],node.input_coords);
-      console.log(node.output_coords);
-      msg.payload.coords = node.output_coords;
-            	
+      msg.proj4_coords = node.output_coords;
+      
+      //console.log(node.output_coords);
+
       node.send(msg);
     });
   }
