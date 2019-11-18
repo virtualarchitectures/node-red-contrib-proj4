@@ -1,0 +1,270 @@
+[
+    {
+        "id": "8dd043a0.4c0c8",
+        "type": "tab",
+        "label": "Coordinate Tranformation",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "b4b41c7.57853e",
+        "type": "inject",
+        "z": "8dd043a0.4c0c8",
+        "name": "Nelson's Column WGS84",
+        "topic": "",
+        "payload": "{\"lat\":51.507747,\"lon\":-0.12793738}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "1ba09831.940c38"
+            ]
+        ]
+    },
+    {
+        "id": "4277c0cc.c8334",
+        "type": "debug",
+        "z": "8dd043a0.4c0c8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 650,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "1ba09831.940c38",
+        "type": "proj4",
+        "z": "8dd043a0.4c0c8",
+        "name": "WGS84 to OSGB",
+        "firstProjection": "EPSG:4326",
+        "secondProjection": "EPSG:27700",
+        "x": 410,
+        "y": 140,
+        "wires": [
+            [
+                "4277c0cc.c8334"
+            ]
+        ]
+    },
+    {
+        "id": "625747e3.9c3748",
+        "type": "inject",
+        "z": "8dd043a0.4c0c8",
+        "name": "Nelson's Column OSGB",
+        "topic": "",
+        "payload": "{\"eastings\":530018, \"northings\":180418}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 180,
+        "wires": [
+            [
+                "db881600.36c8d8"
+            ]
+        ]
+    },
+    {
+        "id": "c67c27c7.a8fb68",
+        "type": "inject",
+        "z": "8dd043a0.4c0c8",
+        "name": "Dublin Spire ITM",
+        "topic": "",
+        "payload": "{\"eastings\":715829,\"northings\":734698}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 120,
+        "y": 320,
+        "wires": [
+            [
+                "ae103024.35472"
+            ]
+        ]
+    },
+    {
+        "id": "caf3818a.4e0e3",
+        "type": "inject",
+        "z": "8dd043a0.4c0c8",
+        "name": "Dublin Spire Irish Grid",
+        "topic": "",
+        "payload": "{\"eastings\":315888,\"northings\":234674}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 360,
+        "wires": [
+            [
+                "fe575db7.4e4fe"
+            ]
+        ]
+    },
+    {
+        "id": "787b21bf.99833",
+        "type": "inject",
+        "z": "8dd043a0.4c0c8",
+        "name": "Dublin Spire WGS84",
+        "topic": "",
+        "payload": "{\"latitude\":53.349812,\"longitude\":-6.260263}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 260,
+        "wires": [
+            [
+                "e1d311ab.9ff92",
+                "eb99d127.06d98"
+            ]
+        ]
+    },
+    {
+        "id": "db881600.36c8d8",
+        "type": "proj4",
+        "z": "8dd043a0.4c0c8",
+        "name": "OSGB to WGS84",
+        "firstProjection": "EPSG:27700",
+        "secondProjection": "EPSG:4326",
+        "x": 410,
+        "y": 180,
+        "wires": [
+            [
+                "4277c0cc.c8334"
+            ]
+        ]
+    },
+    {
+        "id": "e1d311ab.9ff92",
+        "type": "proj4",
+        "z": "8dd043a0.4c0c8",
+        "name": "WGS84 to ITM",
+        "firstProjection": "EPSG:4326",
+        "secondProjection": "EPSG:2157",
+        "x": 400,
+        "y": 240,
+        "wires": [
+            [
+                "4277c0cc.c8334"
+            ]
+        ]
+    },
+    {
+        "id": "eb99d127.06d98",
+        "type": "proj4",
+        "z": "8dd043a0.4c0c8",
+        "name": "WGS84 to Irish Grid",
+        "firstProjection": "EPSG:4326",
+        "secondProjection": "EPSG:29903",
+        "x": 420,
+        "y": 280,
+        "wires": [
+            [
+                "4277c0cc.c8334"
+            ]
+        ]
+    },
+    {
+        "id": "ae103024.35472",
+        "type": "proj4",
+        "z": "8dd043a0.4c0c8",
+        "name": "ITM to WGS84",
+        "firstProjection": "EPSG:2157",
+        "secondProjection": "EPSG:4326",
+        "x": 400,
+        "y": 320,
+        "wires": [
+            [
+                "4277c0cc.c8334"
+            ]
+        ]
+    },
+    {
+        "id": "fe575db7.4e4fe",
+        "type": "proj4",
+        "z": "8dd043a0.4c0c8",
+        "name": "Irish Grid to WGS84",
+        "firstProjection": "EPSG:29903",
+        "secondProjection": "EPSG:4326",
+        "x": 420,
+        "y": 360,
+        "wires": [
+            [
+                "4277c0cc.c8334"
+            ]
+        ]
+    },
+    {
+        "id": "8613076b.113368",
+        "type": "inject",
+        "z": "8dd043a0.4c0c8",
+        "name": "Array Object [x,y]",
+        "topic": "",
+        "payload": "[-0.12793738,51.507747]",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "9fed920e.299f7"
+            ]
+        ]
+    },
+    {
+        "id": "9fed920e.299f7",
+        "type": "proj4",
+        "z": "8dd043a0.4c0c8",
+        "name": "",
+        "firstProjection": "EPSG:4326",
+        "secondProjection": "EPSG:27700",
+        "x": 410,
+        "y": 60,
+        "wires": [
+            [
+                "4277c0cc.c8334"
+            ]
+        ]
+    },
+    {
+        "id": "f3704783.eb14f8",
+        "type": "inject",
+        "z": "8dd043a0.4c0c8",
+        "name": "JSON Object {x:x,y:y}",
+        "topic": "",
+        "payload": "{\"x\":-0.12793738,\"y\":51.507747}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 40,
+        "wires": [
+            [
+                "9fed920e.299f7"
+            ]
+        ]
+    }
+]
