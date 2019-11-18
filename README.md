@@ -16,7 +16,7 @@ As with proj4.js library, coordinates can be provided as an object of the form `
 Results will be returned attached to a new message property `msg.proj4_coords`. The results will be returned in the same form as they were received, either an object of the form `{x:x,y:y}` or as an array of the form `[x,y]`.
 
 ## Example File
-An example file has been provded which demonstrates common usage of the node. Access the example by navigating to the Node-Red editor's menu and selecting **Export > Examples > node-red-contrib-proj4 > Coordinate Transformation**.
+An example file has been provided which demonstrates common usage of the node. Access the example by navigating to the Node-Red editor's menu and selecting **Export > Examples > node-red-contrib-proj4 > Coordinate Transformation**.
 
 ## Supported Coordinate Reference Systems
 Currently the Proj4 node supports the following coordinate systems:
