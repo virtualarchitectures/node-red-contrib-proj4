@@ -8,10 +8,10 @@ This node is primarily intended from converting between coordinates provided in 
 The user specifies a coordinate reference system to 'Convert from', and a second to 'Convert to' from the dropdown menus. When the node receives coordinate pairs in an accepted format it will transform the values from the first coordinate system to the second.
 
 As with proj4.js library, coordinates can be provided as an object of the form `{x:x,y:y}` or an array of the form `[x,y]`. Additionally the node will parse the message payload for coordinate pairs identified by the following keywords:
-- x,y: `msg.payload.x && msg.payload.y`
-- lat,lon: `msg.payload.lon && msg.payload.lat`
-- latitude,longitude: `msg.payload.longitude && msg.payload.latitude`
-- eastings,northings: `msg.payload.eastings && msg.payload.northings`
+- x,y: `msg.payload.x` and `msg.payload.y`
+- lat,lon: `msg.payload.lon` and `msg.payload.lat`
+- latitude,longitude: `msg.payload.longitude` and `msg.payload.latitude`
+- eastings,northings: `msg.payload.eastings` and `msg.payload.northings`
 
 Results will be returned attached to a new message property `msg.proj4_coords`. The results will be returned in the same form as they were received, either an object of the form `{x:x,y:y}` or as an array of the form `[x,y]`.
 
