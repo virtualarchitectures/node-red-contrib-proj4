@@ -30,9 +30,7 @@ module.exports = function(RED) {
       		node.output_coords;
       		var err;
       		
-      		//console.log('Converting from ' + node.firstProjection + ' to ' + node.secondProjection);
-      		//console.log(msg.payload);
-      
+      		console.log('Converting from ' + node.firstProjection + ' to ' + node.secondProjection);
 
 	  		if (msg.payload.x && msg.payload.y) {
 	    		node.input_coords = {"x":msg.payload.x,"y":msg.payload.y};
@@ -59,7 +57,7 @@ module.exports = function(RED) {
         		}
 			}
 
-			//console.log(node.output_coords);
+			console.log(node.output_coords);
 			node.send(msg);
 		});
 	}

@@ -1,8 +1,8 @@
 {
   "name": "node-red-contrib-proj4",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A Node-Red node for performing geographic coordinate conversions",
-  "node-red" : {
+  "node-red": {
     "nodes": {
       "proj4": "proj4/proj4.js"
     }
@@ -20,7 +20,7 @@
     "mapping"
   ],
   "dependencies": {
-    "proj4": "^2.5.0"
+    "proj4": "2.5.0"
   },
   "author": {
     "name": "Oliver Dawkins",
