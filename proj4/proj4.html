@@ -6,6 +6,8 @@
             name: {value:""},
             firstProjection: {value:"EPSG:4326", required:true},
             secondProjection: {value:"EPSG:27700", required:true},
+            firstCRS: {value:""},
+            secondCRS: {value:""},
         },
         inputs:1,
         outputs:1,
@@ -21,29 +23,42 @@
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
-        <div class="form-row">
+    <div class="form-row">
+        <label for="projection-type-select" style="width:25%"><i class="fa fa-globe"></i> Selection</label>
+        <select id="projection-type-select"  style="width: 50%">
+        	<option value="epsg_code">EPSG Code</option>
+        	<option value="crs_string">Proj / WKT String</option>
+        </select>
+    </div>
+    <div class="form-row projection-type" id="projection-type-epsg_code">
         <label for="node-input-firstProjection" style="width:25%">Convert from</label>
-        <select type="text" id="node-input-firstProjection" style="width:50%">
+        <select type="text" id="node-input-firstProjection" style="width:50%; margin-bottom:7px">
             <option value="EPSG:4326">WGS84 / GPS (EPSG:4326)</option>
             <option value="EPSG:27700">OSGB (EPSG:27700)</option>
             <option value="EPSG:2157">ITM (EPSG:2157)</option>
             <option value="EPSG:29903">Irish Grid (EPSG:29903)</option>
             <option value="EPSG:4269">NAD83 (EPSG:4269)</option>
             <option value="EPSG:3857">WGS84 / Psuedo-Mercator (EPSG:3857)</option>
-        </select>&nbsp;(topics)
-    </div>
-    </div>
-        <div class="form-row">
+        </select>
+    	</br>
         <label for="node-input-secondProjection" style="width:25%">Convert to</label>
-        <select type="text" id="node-input-secondProjection" style="width:50%">
+        <select type="text" id="node-input-secondProjection" style="width:50%; margin-bottom:7px">
             <option value="EPSG:27700">OSGB (EPSG:27700)</option>
             <option value="EPSG:2157">ITM (EPSG:2157)</option>
             <option value="EPSG:29903">Irish Grid (EPSG:29903)</option>
             <option value="EPSG:4269">NAD83 (EPSG:4269)</option>
             <option value="EPSG:4326">WGS84 / GPS (EPSG:4326)</option>
             <option value="EPSG:3857">WGS84 / Psuedo-Mercator (EPSG:3857)</option>
-        </select>&nbsp;(topics)
+        </select>
     </div>
+    <div class="form-row projection-type hidden" id="projection-type-crs_strings">
+    	<label for="node-input-firstString" style="width:25%">Convert from</label>
+    	<input type="text" id="node-input-firstString" style="width:50%; margin-bottom:7px" id="node-input-firstCRS" placeholder="Proj / WKT String">
+    	</br>
+    	<label for="node-input-secondString" style="width:25%">Convert to</label>
+    	<input type="text" id="node-input-secondString" style="width:50%; margin-bottom:7px" id="node-input-secondCRS" placeholder="Proj / WKT String">
+    </div>
+
 </script>
 
 <script type="text/x-red" data-help-name="proj4">
