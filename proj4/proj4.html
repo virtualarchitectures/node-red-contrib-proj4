@@ -4,6 +4,7 @@
         color: '#a6bbcf',
         defaults: {
             name: {value:""},
+            select: {value:"epsg_code", required:true},
             firstProjection: {value:"EPSG:4326", required:true},
             secondProjection: {value:"EPSG:27700", required:true},
             firstCRS: {value:""},
@@ -14,7 +15,34 @@
         icon: "white-globe.svg",
         label: function() {
             return this.name||"proj4";
-        }
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        },
+
+        oneditprepare: function() {
+            $("#node-input-select").change(function() {
+                var id = $("#node-input-select option:selected").val();
+                $(".projection-type").hide();
+                $("#projection-type-"+id).show();
+            });
+
+            var id = $("#node-input-select option:selected").val();
+            $(".projection-type").hide();
+            $("#projection-type-"+id).show();
+        },
+
+        oneditsave: function() {
+            var type = $("#node_input-select option:selected").val();
+            if(type == "crs_string"){
+                $("#node-input-firstProjection").val("");
+                $("#node-input-secondProjection").val("");
+            } else if (type == "epsg_code") {
+                $("#node-input-firstString").val("");
+                $("#node-input-secondString").val("");
+            }
+        },
+
     });
 </script>
 
@@ -24,8 +52,8 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
-        <label for="projection-type-select" style="width:25%"><i class="fa fa-globe"></i> Selection</label>
-        <select id="projection-type-select"  style="width: 50%">
+        <label for="node-input-select" style="width:25%"><i class="fa fa-globe"></i> Selection</label>
+        <select type="text" id="node-input-select" style="width: 50%">
         	<option value="epsg_code">EPSG Code</option>
         	<option value="crs_string">Proj / WKT String</option>
         </select>
@@ -51,14 +79,13 @@
             <option value="EPSG:3857">WGS84 / Psuedo-Mercator (EPSG:3857)</option>
         </select>
     </div>
-    <div class="form-row projection-type hidden" id="projection-type-crs_strings">
-    	<label for="node-input-firstString" style="width:25%">Convert from</label>
-    	<input type="text" id="node-input-firstString" style="width:50%; margin-bottom:7px" id="node-input-firstCRS" placeholder="Proj / WKT String">
+    <div class="form-row projection-type hidden" id="projection-type-crs_string">
+    	<label for="node-input-firstCRS" style="width:25%">Convert from</label>
+    	<input type="text" id="node-input-firstCRS" style="width:50%; margin-bottom:7px" placeholder="Enter Proj / WKT String">
     	</br>
-    	<label for="node-input-secondString" style="width:25%">Convert to</label>
-    	<input type="text" id="node-input-secondString" style="width:50%; margin-bottom:7px" id="node-input-secondCRS" placeholder="Proj / WKT String">
+    	<label for="node-input-secondCRS" style="width:25%">Convert to</label>
+    	<input type="text" id="node-input-secondCRS" style="width:50%; margin-bottom:7px" placeholder="Enter Proj / WKT String">
     </div>
-
 </script>
 
 <script type="text/x-red" data-help-name="proj4">
