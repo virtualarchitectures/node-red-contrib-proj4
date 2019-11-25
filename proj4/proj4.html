@@ -137,7 +137,9 @@
 
     <h3>Error Handling</h3>
         <p><code>"TypeError: coordinates must be finite numbers"</code></p>
-        <p>If you recieve this error it typically indicates that the message payload passed into the node does not contain coordinates in one of the specified formats. Adding a Catch node to the flow will allow the payload to pass through the proj4 node, and will append an error property <code>msg.error</code> which can be viewed via a debug node by setting its output dropdown value to <code>complete msg object</code>.</p>
+        <p>If you recieve this error it typically indicates that the message payload passed into the node does not contain coordinates in one of the specified formats.</p>
+        <p>Alternatively messages such as <code>"TypeError: Cannot read property 'datum_type' of undefined"</code> or <code>"TypeError: Cannot read property '0' of undefined"</code> may indicate an issue with the proj-strings or WKT projection representations.</p>
+        <p>Adding a Catch node to the flow will allow the payload to pass through the proj4 node, and will append an error property <code>msg.error</code> which can be viewed via a debug node by setting its output dropdown value to <code>complete msg object</code>.</p>
 
     <h3>References</h3>
         <ul>
