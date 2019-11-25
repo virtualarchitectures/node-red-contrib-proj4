@@ -115,15 +115,16 @@
 
     <h3>Details</h3>
         <p>The node outputs coordinates as an array of the form <code>[x,y]</code>.</p>
-        <p>The user specifies a coordinate reference system to 'Convert from', and a second to 'Convert to' from the dropdown menus. When the node receives coordinate pairs in an accepted format it will transform the values from the first coordinate system to the second.</p>
-        <p>As with proj4.js library, coordinates can be provided as an object of the form <code>{x:x,y:y}</code> or an array of the form <code>[x,y]</code>. Additionally the node will parse the message payload for coordinate pairs identified by the following keywords: 
+        <p>The user specifies a coordinate reference system to 'Convert from', and a second to 'Convert to'. When the node receives a payload with coordinates in an accepted format it will transform the values from the first CRS to the second.</p>
+        <p>The user first chooses a method for specifiying the two CRSs to use in the conversion. Selecting 'EPSG Codes' provides prepopulated dropdown lists. Alternatively users can select 'Proj / WKT string' in order to input the relevant <a href="https://proj.org/usage/quickstart.html">proj-strings</a> or <a href="https://en.wikipedia.org/wiki/Well-known_text_representation_of_coordinate_reference_systems">well-known text</a> (WKT) representations as found on <a href="https://epsg.io/">epsg.io</a> or <a href="https://spatialreference.org/">spatialreference.org</a>.</p>
+        <p>As with proj4.js library, coordinates can be provided as an object of the form <code>{x:x,y:y}</code> or an array of the form <code>[x,y]</code>. Additionally the node will parse the incomming message payload for coordinates identified by one of the following combinations of payload properties: 
         <ul>
             <li>x,y: <code>msg.payload.x && msg.payload.y</code></li>
             <li>lat,lon: <code>msg.payload.lon && msg.payload.lat</code></li>
             <li>latitude,longitude: <code>msg.payload.longitude && msg.payload.latitude</code></li>
             <li>eastings,northings: <code>msg.payload.eastings && msg.payload.northings</code></li>
         </ul></p>
-        <p>Results will be returned attached to a new message property <code>msg.proj4_coords</code>. The results will be returned in the same form as they were received, either an object of the form <code>{x:x,y:y}</code> or as an array of the form <code>[x,y]</code>.</p>
+        <p>Results will be returned attached as a new message property <code>msg.proj4_coords</code>. The results will be returned in the same format as they were received, either an object of the form <code>{x:x,y:y}</code> or as an array of the form <code>[x,y]</code>.</p>
         <p>Currently the Proj4 node supports the following coordinate systems:
         <ul>
             <li>OSGB (EPSG:27700)</li>
