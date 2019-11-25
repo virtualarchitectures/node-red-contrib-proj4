@@ -4,15 +4,45 @@
         color: '#a6bbcf',
         defaults: {
             name: {value:""},
+            select: {value:"epsg_code", required:true},
             firstProjection: {value:"EPSG:4326", required:true},
             secondProjection: {value:"EPSG:27700", required:true},
+            firstCRS: {value:""},
+            secondCRS: {value:""},
         },
         inputs:1,
         outputs:1,
         icon: "white-globe.svg",
         label: function() {
             return this.name||"proj4";
-        }
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        },
+
+        oneditprepare: function() {
+            $("#node-input-select").change(function() {
+                var id = $("#node-input-select option:selected").val();
+                $(".projection-type").hide();
+                $("#projection-type-"+id).show();
+            });
+
+            var id = $("#node-input-select option:selected").val();
+            $(".projection-type").hide();
+            $("#projection-type-"+id).show();
+        },
+
+        oneditsave: function() {
+            var type = $("#node_input-select option:selected").val();
+            if(type == "crs_string"){
+                $("#node-input-firstProjection").val("");
+                $("#node-input-secondProjection").val("");
+            } else if (type == "epsg_code") {
+                $("#node-input-firstString").val("");
+                $("#node-input-secondString").val("");
+            }
+        },
+
     });
 </script>
 
@@ -21,28 +51,40 @@
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
-        <div class="form-row">
+    <div class="form-row">
+        <label for="node-input-select" style="width:25%"><i class="fa fa-globe"></i> Selection</label>
+        <select type="text" id="node-input-select" style="width: 50%">
+        	<option value="epsg_code">EPSG Code</option>
+        	<option value="crs_string">Proj / WKT String</option>
+        </select>
+    </div>
+    <div class="form-row projection-type" id="projection-type-epsg_code">
         <label for="node-input-firstProjection" style="width:25%">Convert from</label>
-        <select type="text" id="node-input-firstProjection" style="width:50%">
+        <select type="text" id="node-input-firstProjection" style="width:50%; margin-bottom:7px">
             <option value="EPSG:4326">WGS84 / GPS (EPSG:4326)</option>
             <option value="EPSG:27700">OSGB (EPSG:27700)</option>
             <option value="EPSG:2157">ITM (EPSG:2157)</option>
             <option value="EPSG:29903">Irish Grid (EPSG:29903)</option>
             <option value="EPSG:4269">NAD83 (EPSG:4269)</option>
             <option value="EPSG:3857">WGS84 / Psuedo-Mercator (EPSG:3857)</option>
-        </select>&nbsp;(topics)
-    </div>
-    </div>
-        <div class="form-row">
+        </select>
+    	</br>
         <label for="node-input-secondProjection" style="width:25%">Convert to</label>
-        <select type="text" id="node-input-secondProjection" style="width:50%">
+        <select type="text" id="node-input-secondProjection" style="width:50%; margin-bottom:7px">
             <option value="EPSG:27700">OSGB (EPSG:27700)</option>
             <option value="EPSG:2157">ITM (EPSG:2157)</option>
             <option value="EPSG:29903">Irish Grid (EPSG:29903)</option>
             <option value="EPSG:4269">NAD83 (EPSG:4269)</option>
             <option value="EPSG:4326">WGS84 / GPS (EPSG:4326)</option>
             <option value="EPSG:3857">WGS84 / Psuedo-Mercator (EPSG:3857)</option>
-        </select>&nbsp;(topics)
+        </select>
+    </div>
+    <div class="form-row projection-type hidden" id="projection-type-crs_string">
+    	<label for="node-input-firstCRS" style="width:25%">Convert from</label>
+    	<input type="text" id="node-input-firstCRS" style="width:50%; margin-bottom:7px" placeholder="Enter Proj / WKT String">
+    	</br>
+    	<label for="node-input-secondCRS" style="width:25%">Convert to</label>
+    	<input type="text" id="node-input-secondCRS" style="width:50%; margin-bottom:7px" placeholder="Enter Proj / WKT String">
     </div>
 </script>
 
@@ -73,15 +115,16 @@
 
     <h3>Details</h3>
         <p>The node outputs coordinates as an array of the form <code>[x,y]</code>.</p>
-        <p>The user specifies a coordinate reference system to 'Convert from', and a second to 'Convert to' from the dropdown menus. When the node receives coordinate pairs in an accepted format it will transform the values from the first coordinate system to the second.</p>
-        <p>As with proj4.js library, coordinates can be provided as an object of the form <code>{x:x,y:y}</code> or an array of the form <code>[x,y]</code>. Additionally the node will parse the message payload for coordinate pairs identified by the following keywords: 
+        <p>The user specifies a coordinate reference system to 'Convert from', and a second to 'Convert to'. When the node receives a payload with coordinates in an accepted format it will transform the values from the first CRS to the second.</p>
+        <p>The user first chooses a method for specifiying the two CRSs to use in the conversion. Selecting 'EPSG Codes' provides prepopulated dropdown lists. Alternatively users can select 'Proj / WKT string' in order to input the relevant <a href="https://proj.org/usage/quickstart.html">proj-strings</a> or <a href="https://en.wikipedia.org/wiki/Well-known_text_representation_of_coordinate_reference_systems">well-known text</a> (WKT) representations as found on <a href="https://epsg.io/">epsg.io</a> or <a href="https://spatialreference.org/">spatialreference.org</a>.</p>
+        <p>As with proj4.js library, coordinates can be provided as an object of the form <code>{x:x,y:y}</code> or an array of the form <code>[x,y]</code>. Additionally the node will parse the incomming message payload for coordinates identified by one of the following combinations of payload properties: 
         <ul>
             <li>x,y: <code>msg.payload.x && msg.payload.y</code></li>
             <li>lat,lon: <code>msg.payload.lon && msg.payload.lat</code></li>
             <li>latitude,longitude: <code>msg.payload.longitude && msg.payload.latitude</code></li>
             <li>eastings,northings: <code>msg.payload.eastings && msg.payload.northings</code></li>
         </ul></p>
-        <p>Results will be returned attached to a new message property <code>msg.proj4_coords</code>. The results will be returned in the same form as they were received, either an object of the form <code>{x:x,y:y}</code> or as an array of the form <code>[x,y]</code>.</p>
+        <p>Results will be returned attached as a new message property <code>msg.proj4_coords</code>. The results will be returned in the same format as they were received, either an object of the form <code>{x:x,y:y}</code> or as an array of the form <code>[x,y]</code>.</p>
         <p>Currently the Proj4 node supports the following coordinate systems:
         <ul>
             <li>OSGB (EPSG:27700)</li>
@@ -94,7 +137,9 @@
 
     <h3>Error Handling</h3>
         <p><code>"TypeError: coordinates must be finite numbers"</code></p>
-        <p>If you recieve this error it typically indicates that the message payload passed into the node does not contain coordinates in one of the specified formats. Adding a Catch node to the flow will allow the payload to pass through the proj4 node, and will append an error property <code>msg.error</code> which can be viewed via a debug node by setting its output dropdown value to <code>complete msg object</code>.</p>
+        <p>If you recieve this error it typically indicates that the message payload passed into the node does not contain coordinates in one of the specified formats.</p>
+        <p>Alternatively messages such as <code>"TypeError: Cannot read property 'datum_type' of undefined"</code> or <code>"TypeError: Cannot read property '0' of undefined"</code> may indicate an issue with the proj-strings or WKT projection representations.</p>
+        <p>Adding a Catch node to the flow will allow the payload to pass through the proj4 node, and will append an error property <code>msg.error</code> which can be viewed via a debug node by setting its output dropdown value to <code>complete msg object</code>.</p>
 
     <h3>References</h3>
         <ul>
