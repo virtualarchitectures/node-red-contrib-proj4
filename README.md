@@ -9,11 +9,11 @@ The user specifies a coordinate reference system to 'Convert from', and a second
 
 The user first chooses a method for specifiying the two CRSs to use in the conversion. Selecting 'EPSG Codes' provides prepopulated dropdown lists. 
 
-![EPSG Code](images/EPSG_Code.png)
+![EPSG Code](images/EPSG_Code.PNG)
 
 Alternatively users can select 'Proj / WKT string' in order to input the relevant [proj-strings](https://proj.org/usage/quickstart.html) or [well-known text](https://en.wikipedia.org/wiki/Well-known_text_representation_of_coordinate_reference_systems) (WKT) representations as found on [epsg.io](http://epsg.io/) or [spatialreference.org](https://spatialreference.org/).
 
-![Proj WKT String](images/Proj_WKT_String.png)
+![Proj WKT String](images/Proj_WKT_String.PNG)
 
 As with proj4.js library, coordinates can be provided as an object of the form `{x:x,y:y}` or an array of the form `[x,y]`. Additionally the node will parse the incomming message payload for coordinates identified by one of the following combinations of payload properties:
 - x,y: `msg.payload.x` and `msg.payload.y`
@@ -26,7 +26,7 @@ Results will be returned as a new message property `msg.proj4_coords`. The resul
 ## Example File
 An example file has been provided which demonstrates common usage of the node. Access the example by navigating to the Node-Red editor's menu and selecting **Export > Examples > node-red-contrib-proj4 > Coordinate Transformation**.
 
-![Example Flow](images/Example_Flow.png)
+![Example Flow](images/Example_Flow.PNG)
 
 ## Supported Coordinate Reference Systems
 Currently the Proj4 node supports the following coordinate systems:
