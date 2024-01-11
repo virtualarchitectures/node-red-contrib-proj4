@@ -15,6 +15,8 @@ Alternatively users can select 'Proj / WKT string' in order to input the relevan
 
 ![Proj WKT String](images/Proj_WKT_String.PNG)
 
+WKT strings can be set by injecting msg.firstCRS and msg.secondCRS.
+
 As with proj4.js library, coordinates can be provided as an object of the form `{x:x,y:y}` or an array of the form `[x,y]`. Additionally the node will parse the incomming message payload for coordinates identified by one of the following combinations of payload properties:
 - x,y: `msg.payload.x` and `msg.payload.y`
 - lat,lon: `msg.payload.lon` and `msg.payload.lat`
