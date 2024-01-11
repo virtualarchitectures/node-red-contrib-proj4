@@ -24,14 +24,26 @@ module.exports = function(RED) {
 		        ]
 	    	]);
 			
-			node.select = n.select;
+		node.select = n.select;
 
-			node.firstProjection = n.firstProjection;
+		node.firstProjection = n.firstProjection;
       		node.secondProjection = n.secondProjection;
 
-      		node.firstCRS = n.firstCRS;
-      		node.secondCRS = n.secondCRS;
-      
+      		//node.firstCRS = n.firstCRS;
+      		//node.secondCRS = n.secondCRS;
+
+		if (n.firstCRS.trim().length === 0) {
+		  node.firstCRS = msg.firstCRS;
+		} else {
+		  node.firstCRS = n.firstCRS;
+		}
+		
+		if (n.secondCRS.trim().length === 0) {
+		  node.secondCRS = msg.secondCRS;
+		} else {
+		  node.secondCRS = n.secondCRS;
+		}
+			
       		node.input_coords;
       		node.output_coords;
       		var err;
